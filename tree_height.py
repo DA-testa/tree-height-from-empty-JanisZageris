@@ -28,21 +28,19 @@ def compute_height(node):
     return 1 + max(heights)
 
 def main():
-    mode = input()
-    
-    if mode == 'F':
-        n = int(input())
+    mode_and_input = input().split(maxsplit=1)
+    mode = mode_and_input[0]
+    if mode == 'I':
+        filename = mode_and_input[1]
+        with open(os.path.join('test', filename)) as f:
+            n = int(f.readline())
+            parents = list(map(int, f.readline().split()))
+    else:
+        n = int(mode_and_input[1])
         parents = list(map(int, input().split()))
-    elif mode == 'I':
-        file_name = input("Enter the name of the input file: ")
-        file_path = os.path.join("test", file_name)
-        with open(file_path, 'r') as file:
-            n = int(file.readline().strip())
-            parents = list(map(int, file.readline().strip().split()))
-    
     tree = build_tree(n, parents)
     height = compute_height(tree) + 1
     print(height)
 
-sys.setrecursionlimit(10**7)  # max depth of recursion
-main()
+if __name__ == '__main__':
+    main()
