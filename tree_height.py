@@ -3,6 +3,7 @@
 import sys
 import threading
 import numpy
+import os
 
 class Node:
     def __init__(self, parent=None):
@@ -27,18 +28,19 @@ def compute_height(node):
     return 1 + max(heights)
 
 def main():
-    input_method = input("Enter input method ('F' for keyboard input, 'i' for input file): ")
+    mode = input("Enter 'F' for keyboard input or 'i' for file input: ")
     
-    if input_method == 'F':
+    if mode == 'F':
         n = int(input())
         parents = list(map(int, input().split()))
-    elif input_method == 'i':
-        filename = input("Enter filename: ")
-        with open(filename, 'r') as f:
-            n = int(f.readline())
-            parents = list(map(int, f.readline().split()))
+    elif mode == 'i':
+        file_name = input("Enter the name of the input file: ")
+        file_path = os.path.join("test", file_name)
+        with open(file_path, 'r') as file:
+            n = int(file.readline().strip())
+            parents = list(map(int, file.readline().strip().split()))
     else:
-        print("Invalid input method. Exiting program.")
+        print("Invalid input mode.")
         return
     
     tree = build_tree(n, parents)
