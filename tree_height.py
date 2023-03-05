@@ -28,13 +28,13 @@ def compute_height(node):
     return 1 + max(heights)
 
 def main():
-    mode = input("Enter 'F' for keyboard input or 'i' for file input: ")
+    mode = input()
     
     if mode == 'i':
         n = int(input())
         parents = list(map(int, input().split()))
     elif mode == 'F':
-        file_name = input("Enter the name of the input file: ")
+        file_name = input()
         file_path = os.path.join("test", file_name)
         with open(file_path, 'r') as file:
             n = int(file.readline().strip())
