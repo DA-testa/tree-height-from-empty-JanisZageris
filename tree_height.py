@@ -30,10 +30,10 @@ def compute_height(node):
 def main():
     mode = input("Enter 'F' for keyboard input or 'i' for file input: ")
     
-    if mode == 'F':
+    if mode == 'i':
         n = int(input())
         parents = list(map(int, input().split()))
-    elif mode == 'i':
+    elif mode == 'F':
         file_name = input("Enter the name of the input file: ")
         file_path = os.path.join("test", file_name)
         with open(file_path, 'r') as file:
