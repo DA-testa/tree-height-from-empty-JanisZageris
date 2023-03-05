@@ -30,11 +30,15 @@ def compute_height(node):
 def main():
     mode = input()
     
-    file_name = input()
-    file_path = os.path.join("test", file_name)
-    with open(file_path, 'r') as file:
-        n = int(file.readline().strip())
-        parents = list(map(int, file.readline().strip().split()))
+    if mode == 'F':
+        n = int(input())
+        parents = list(map(int, input().split()))
+    elif mode == 'i':
+        file_name = input("Enter the name of the input file: ")
+        file_path = os.path.join("test", file_name)
+        with open(file_path, 'r') as file:
+            n = int(file.readline().strip())
+            parents = list(map(int, file.readline().strip().split()))
     
     tree = build_tree(n, parents)
     height = compute_height(tree) + 1
