@@ -27,8 +27,20 @@ def compute_height(node):
     return 1 + max(heights)
 
 def main():
-    n = int(input())
-    parents = list(map(int, input().split()))
+    input_method = input("Enter input method ('F' for keyboard input, 'i' for input file): ")
+    
+    if input_method == 'F':
+        n = int(input())
+        parents = list(map(int, input().split()))
+    elif input_method == 'i':
+        filename = input("Enter filename: ")
+        with open(filename, 'r') as f:
+            n = int(f.readline())
+            parents = list(map(int, f.readline().split()))
+    else:
+        print("Invalid input method. Exiting program.")
+        return
+    
     tree = build_tree(n, parents)
     height = compute_height(tree) + 1
     print(height)
