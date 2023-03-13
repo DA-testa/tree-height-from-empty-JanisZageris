@@ -26,7 +26,7 @@ def compute_height(node):
     return 1 + max(heights)
 
 def main():
-    mode = input("Enter 'F' for keyboard input or 'i' for file input: ")
+    mode = input()
     
     if 'I' in mode:
         n = int(input())
