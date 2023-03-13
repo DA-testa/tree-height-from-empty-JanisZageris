@@ -4,7 +4,7 @@ import sys
 import os
 
 class Node:
-    def init(self, parent=None):
+    def __init__(self, parent=None):
         self.parent = parent
         self.children = []
 
@@ -31,8 +31,8 @@ def main():
     if 'I' in mode:
         n = int(input())
         parents = list(map(int, input().split()))
-    if 'F' in mode:
-        file_name = input("Enter the name of the input file: ")
+    elif 'F' in mode:
+        file_name = input()
         file_path = os.path.join("test", file_name)
         with open(file_path, 'r') as file:
             n = int(file.readline().strip())
