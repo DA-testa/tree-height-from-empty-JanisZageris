@@ -1,12 +1,10 @@
-# python3
+# 221RDB249 Jānis Kārlis Zāģeris 2.grupa
 
 import sys
-import threading
-import numpy
 import os
 
 class Node:
-    def __init__(self, parent=None):
+    def init(self, parent=None):
         self.parent = parent
         self.children = []
 
@@ -28,27 +26,24 @@ def compute_height(node):
     return 1 + max(heights)
 
 def main():
-    mode = input()
+    mode = input("Enter 'F' for keyboard input or 'i' for file input: ")
     
-    if mode == 'I':
+    if 'I' in mode:
         n = int(input())
         parents = list(map(int, input().split()))
-    elif mode == 'F':
-        file_name = input()
+    if 'F' in mode:
+        file_name = input("Enter the name of the input file: ")
         file_path = os.path.join("test", file_name)
         with open(file_path, 'r') as file:
             n = int(file.readline().strip())
             parents = list(map(int, file.readline().strip().split()))
     else:
-        file_name = input()
-        file_path = os.path.join("test", file_name)
-        with open(file_path, 'r') as file:
-            n = int(file.readline().strip())
-            parents = list(map(int, file.readline().strip().split()))
+        print("Invalid input mode.")
+        return
     
     tree = build_tree(n, parents)
     height = compute_height(tree) + 1
     print(height)
 
-sys.setrecursionlimit(10**7)  # max depth of recursion
+sys.setrecursionlimit(10**7)
 main()
