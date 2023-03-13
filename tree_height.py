@@ -1,33 +1,49 @@
-# python3
+# 221RDB249 Jānis Kārlis Zāģeris 2.grupa
 
 import sys
-import threading
-import numpy
+import os
 
+class Node:
+    def __init__(self, parent=None):
+        self.parent = parent
+        self.children = []
 
-def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    # Your code here
-    return max_height
+def build_tree(n, parents):
+    nodes = [Node() for _ in range(n)]
+    root = None
+    for i, p in enumerate(parents):
+        if p == -1:
+            root = nodes[i]
+        else:
+            nodes[p].children.append(nodes[i])
+            nodes[i].parent = nodes[p]
+    return root
 
+def compute_height(node):
+    if not node.children:
+        return 0
+    heights = [compute_height(child) for child in node.children]
+    return 1 + max(heights)
 
 def main():
-    # implement input form keyboard and from files
+    mode = input()
     
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
+    if 'I' in mode:
+        n = int(input())
+        parents = list(map(int, input().split()))
+    elif 'F' in mode:
+        file_name = input()
+        file_path = os.path.join("test", file_name)
+        with open(file_path, 'r') as file:
+            n = int(file.readline().strip())
+            parents = list(map(int, file.readline().strip().split()))
+    else:
+        print("Invalid input mode.")
+        return
     
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
-    pass
+    tree = build_tree(n, parents)
+    height = compute_height(tree) + 1
+    print(height)
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
-sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**27)   # new thread will get stack of such size
-threading.Thread(target=main).start()
+sys.setrecursionlimit(10**7)
 main()
-# print(numpy.array([1,2,3]))
